@@ -173,6 +173,20 @@
     .bg-dark {
       background: #161e16 !important;
     }
+    .brand-item img {
+      width: 100%;
+      height: 80px;
+      object-fit: contain;
+      filter: grayscale(100%);
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+
+    .brand-item img:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+      transform: scale(1.05);
+    }
   </style>
   <body>
     <!-- Spinner Start -->
@@ -245,6 +259,9 @@
           width: 15rem !important;
         }
       }
+      html {
+        scroll-behavior: smooth;
+      }
     </style>
     <!-- Navbar Start -->
     <nav
@@ -269,8 +286,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav mx-auto p-4 p-lg-0">
-          <a href="/" class="nav-item nav-link active">Home</a>
+        <div class="navbar-nav mx-auto p-4 p-lg-0" id="navbar">
+          <a href="/" class="nav-item nav-link">Home</a>
           <a href="#about" class="nav-item nav-link">About</a>
           <a href="#service" class="nav-item nav-link">Services</a>
           <a href="#Showroom" class="nav-item nav-link">Showroom</a>
@@ -404,7 +421,7 @@
     <!-- Facts End -->
 
     <!-- About Start -->
-    <div class="container-xxl py-6" id="about">
+    <section class="container-xxl py-6" id="about">
       <div class="container">
         <div class="row g-5">
           <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -458,11 +475,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
     <!-- About End -->
 
     <!-- Product Start -->
-    <div class="container-xxl bg-light mt-5 mb-4 pt-5" id="service">
+    <section class="container-xxl bg-light mt-5 mb-4 pt-5" id="service">
       <div class="container">
         <div
           class="text-center mx-auto wow fadeInUp"
@@ -581,8 +598,36 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
     <!-- Product End -->
+
+    <section id="brands" class="py-5 bg-light">
+      <div class="container text-center">
+        <h2 class="mb-4">Our Trusted Brands</h2>
+
+        <div class="owl-carousel brand-slider">
+          <div class="brand-item">
+            <img src="img/brand1.png" alt="Brand 1" />
+          </div>
+
+          <div class="brand-item">
+            <img src="img/brand2.png" alt="Brand 2" />
+          </div>
+
+          <!-- <div class="brand-item">
+            <img src="img/brand3.png" alt="Brand 3" />
+          </div>
+
+          <div class="brand-item">
+            <img src="img/brand4.png" alt="Brand 4" />
+          </div>
+
+          <div class="brand-item">
+            <img src="img/brand5.png" alt="Brand 5" />
+          </div> -->
+        </div>
+      </div>
+    </section>
 
     <!-- Service Start -->
     <div class="container-xxl py-6">
@@ -708,7 +753,7 @@
       </div>
     </div>
 
-    <div class="container-xxl py-5" id="Showroom">
+    <section class="container-xxl py-5" id="Showroom">
       <div class="container">
         <div
           class="text-center mx-auto mb-5 wow fadeInUp"
@@ -761,7 +806,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <div
       class="container bg-primary text-light rounded-bottom p-5 my-6 mt-0 wow fadeInUp"
@@ -792,7 +837,7 @@
       </div>
     </div>
 
-    <div class="container-xxl py-5 bg-light" id="contact">
+    <section class="container-xxl py-5 bg-light" id="contact">
       <div class="container">
         <div class="row align-items-center g-5">
           <!-- LEFT : CTA INFO -->
@@ -873,7 +918,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
     <script>
       function sendToWhatsApp(event) {
         event.preventDefault();
@@ -1162,3 +1207,54 @@
     </script>
   </body>
 </html>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("#navbar .nav-link");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop - 100;
+        const sectionHeight = section.clientHeight;
+
+        if (pageYOffset >= sectionTop) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === "#" + current) {
+          link.classList.add("active");
+        }
+      });
+    });
+  });
+</script>
+<script>
+  $(".brand-slider").owlCarousel({
+    loop: false,
+    margin: 30,
+    nav: false,
+    dots: false,
+    autoplay: true,
+    autoplayTimeout: 2000,
+    autoplayHoverPause: true,
+    responsive: {
+      0: {
+        items: 2,
+      },
+      576: {
+        items: 3,
+      },
+      768: {
+        items: 4,
+      },
+      992: {
+        items: 4,
+      },
+    },
+  });
+</script>
